@@ -23,15 +23,12 @@ def solve(lines: List[str], knots: int):
             knot_positions[0] += move_mapping[direction]
 
             for i in range(1, len(knot_positions)):
-                current_knot_position = knot_positions[i]
-                previous_knot_position = knot_positions[i - 1]
+                position_diff = knot_positions[i - 1] - knot_positions[i]
 
-                diff = previous_knot_position - current_knot_position
-
-                if np.abs(diff).max() < 2:
+                if np.abs(position_diff).max() < 2:
                     continue
 
-                knot_positions[i] += np.nan_to_num(diff // np.abs(diff))
+                knot_positions[i] += np.nan_to_num(position_diff // np.abs(position_diff))
 
             tail_visited.add(str(knot_positions[-1]))
 
